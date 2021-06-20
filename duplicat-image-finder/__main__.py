@@ -44,7 +44,21 @@ def found_similars(im, img_folder):
         total_coincidence = 0
         for h_px in range(H_SIZE):
             for w_px in range(W_SIZE):
-                if main_mtx[h_px][w_px] == img_mtx[h_px][w_px]:
+                ro, go, bo = main_mtx[h_px][w_px]
+                r, g, b = img_mtx[h_px][w_px]
+                r_result = False
+                g_result = False
+                b_result = False
+                # R
+                if ro > r - 10 and ro < r + 10:
+                    r_result = True
+                # G
+                if go > g - 10 and go < g + 10:
+                    g_result = True
+                # b
+                if bo > b - 10 and bo < b + 10:
+                    b_result = True
+                if r_result and g_result and b_result:
                     total_coincidence += 1
         percent = (total_coincidence * 100) / (W_SIZE * H_SIZE)
         img_f_result.append(f"{img} => {percent}")
@@ -52,7 +66,7 @@ def found_similars(im, img_folder):
 
 
 if __name__ == "__main__":
-    image_name = "001.jpg"
+    image_name = "004.jpg"
     base_folder = path.realpath(path.dirname(__file__))
     img_folder = path.join(base_folder, 'imgs')
     img_path = path.join(img_folder, image_name)
