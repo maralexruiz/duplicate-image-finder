@@ -1,7 +1,7 @@
 from os import path, walk
 from PIL import Image, ImageOps
 
-COLORS = 255
+COLORS = 256
 W_SIZE = 500
 H_SIZE = 500
 
@@ -12,7 +12,7 @@ def resize_image(img_path):
         # Load image
         im = Image.open(img_path)
         im = im.quantize(
-            colors=256,
+            colors=COLORS,
             method=1
         ).resize(
             (W_SIZE, H_SIZE)
@@ -28,8 +28,8 @@ def get_rgb_image_matrix(im):
     mtx = [[] for x in range(H_SIZE)]
     for h_px in range(H_SIZE):
         for w_px in range(W_SIZE):
-            la= im.getpixel((w_px, h_px))
-            mtx[h_px].append((la))
+            la = im.getpixel((w_px, h_px))
+            mtx[h_px].append(la)
     return mtx
 
 
