@@ -1,5 +1,5 @@
 from os import path, walk
-from PIL import Image
+from PIL import Image, ImageOps
 
 COLORS = 255
 W_SIZE = 500
@@ -11,12 +11,14 @@ def resize_image(img_path):
     try:
         # Load image
         im = Image.open(img_path)
-        im.quantize(
+        im = im.quantize(
             colors=256,
             method=1
         ).resize(
             (W_SIZE, H_SIZE)
-        ).convert('RGB')  # .save(f"{img_path}_result.jpg")
+        )
+        im = ImageOps.grayscale(im)
+        im.save(f"{img_path}_result.jpg")
     except Exception as err:
         print(err)
     return im
@@ -26,8 +28,8 @@ def get_rgb_image_matrix(im):
     mtx = [[] for x in range(H_SIZE)]
     for h_px in range(H_SIZE):
         for w_px in range(W_SIZE):
-            r, g, b = im.getpixel((w_px, h_px))
-            mtx[h_px].append((r, g, b,))
+            la= im.getpixel((w_px, h_px))
+            mtx[h_px].append((la))
     return mtx
 
 
@@ -44,21 +46,13 @@ def found_similars(im, img_folder):
         total_coincidence = 0
         for h_px in range(H_SIZE):
             for w_px in range(W_SIZE):
-                ro, go, bo = main_mtx[h_px][w_px]
-                r, g, b = img_mtx[h_px][w_px]
-                r_result = False
-                g_result = False
-                b_result = False
+                lao = main_mtx[h_px][w_px]
+                la = img_mtx[h_px][w_px]
+                la_result = False
                 # R
-                if ro > r - 10 and ro < r + 10:
-                    r_result = True
-                # G
-                if go > g - 10 and go < g + 10:
-                    g_result = True
-                # b
-                if bo > b - 10 and bo < b + 10:
-                    b_result = True
-                if r_result and g_result and b_result:
+                if lao > la - 10 and lao < la + 10:
+                    la_result = True
+                if la_result:
                     total_coincidence += 1
         percent = (total_coincidence * 100) / (W_SIZE * H_SIZE)
         img_f_result.append(f"{img} => {percent}")
