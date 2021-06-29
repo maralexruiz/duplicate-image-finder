@@ -1,9 +1,6 @@
 from os import path, walk
 from PIL import Image, ImageOps
-
-COLORS = 256
-W_SIZE = 500
-H_SIZE = 500
+from settings import COLORS, W_SIZE, H_SIZE
 
 
 def resize_image(img_path):

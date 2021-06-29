@@ -1,0 +1,4 @@
+
+COLORS = 256
+W_SIZE = 500
+H_SIZE = 500
