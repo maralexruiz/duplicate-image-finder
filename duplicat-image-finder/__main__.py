@@ -1,5 +1,6 @@
 from os import path, walk
 from PIL import Image, ImageOps
+import tkinter
 from settings import COLORS, W_SIZE, H_SIZE
 
 
@@ -55,7 +56,7 @@ def found_similars(im, img_folder):
         img_f_result.append(f"{img} => {percent}")
     print(img_f_result)
 
-
+# this
 if __name__ == "__main__":
     image_name = "004.jpg"
     base_folder = path.realpath(path.dirname(__file__))
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     print(base_folder)
     print(img_folder)
     print(img_path)
-
+    tkinter
     # Get image
     im = resize_image(img_path)
     found_similars(im, img_folder)
