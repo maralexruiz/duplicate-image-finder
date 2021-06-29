@@ -56,7 +56,7 @@ def found_similars(im, img_folder):
         img_f_result.append(f"{img} => {percent}")
     print(img_f_result)
 
-# Example gpg
+# Example gpg s
 if __name__ == "__main__":
     image_name = "004.jpg"
     base_folder = path.realpath(path.dirname(__file__))
